@@ -64,6 +64,10 @@ with sidebar:
         lst_player = sorted(df['player'].unique(),reverse=False)
         player_sel = st.selectbox('Select a player to analyse', ['Team']+lst_player)
 
+    st.markdown("---")
+    st.caption('Powered by Alessio Rossi.')
+    st.caption('For app personalization please contact the developer at alessio.rossi2@gmail.com')
+
 
 with header:
     st.title('ADaM questionnaire analysis')
@@ -194,4 +198,5 @@ with core:
         
     else:
         st.markdown('Please add a dataset to continue!')
+
             
