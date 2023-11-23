@@ -180,12 +180,16 @@ with core:
                                             'stress': "{:.0f}",
                                             'mood': "{:.0f}"},na_rep='---'))
                 
-        for col in ['fatigue','sleep','sorness','stress','mood']:
+        for col in ['fatigue','sleep','sorness','stress','mood','RPE (d-1)']:
+            if col != 'RPE (d-1)':
+                thresh = 4
+            else:
+                thresh = 8
             if player_sel == 'Team':
-                if df_[col].mean() >= 4:
+                if df_[col].mean() >= thresh:
                     st.toast('🚨 Attention for Team with high %s'%col)
             else:
-                if df_[col].mean() >= 4:
+                if df_[col].mean() >= thresh:
                     st.toast('🚨 Attention for %s with high %s'%(player_sel,col))
         
     else:
