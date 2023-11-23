@@ -22,6 +22,13 @@ def color_col(val):
         color = None
     return 'color: %s' % color
 
+def color_col_rpe(val):
+    try:
+        color = 'lightgreen' if float(val) <= 4 else 'coral' if float(val) >= 8 else 'orange'
+    except:
+        color = None
+    return 'color: %s' % color
+
 
 with sidebar:
     st.title('ADaM setup')
@@ -116,7 +123,7 @@ with core:
 
         subplot_fig = plotly_dual_axis(df_w_.query("date >= @date_ & group != 'TL'"),
                             df_w_.query("date >= @date_ & group == 'TL'")[2:-1], 
-                            title="", y1="value", y2="value")
+                            title="")
         
         st.plotly_chart(subplot_fig, theme="streamlit", use_container_width=True)
 
@@ -137,6 +144,7 @@ with core:
         if player_sel == 'Team':
             st.table(df[df['date']==date_sel].set_index('player')[lst_fea_plot]\
                             .style.applymap(color_col, subset=['fatigue','sleep','sorness','stress','mood'])\
+                                  .applymap(color_col_rpe, subset=['RPE (d-1)'])\
                                     .format({'RPE (d-1)': "{:.1f}",
                                             'time (d-1)': "{:.0f}",
                                             'TL (d-1)': "{:.0f}",
@@ -149,6 +157,7 @@ with core:
             try:
                 st.table(df[df['date']==date_sel].set_index('player')[lst_fea_plot]\
                             .style.applymap(color_col, subset=['fatigue','sleep','sorness','stress','mood'])\
+                                  .applymap(color_col_rpe, subset=['RPE (d-1)'])\
                                     .applymap(lambda _: "background-color: darkblue;", subset=([player_sel], slice(None)))\
                                     .format({'RPE (d-1)': "{:.1f}",
                                             'time (d-1)': "{:.0f}",
@@ -161,6 +170,7 @@ with core:
             except:
                 st.table(df[df['date']==date_sel].set_index('player')[lst_fea_plot]\
                             .style.applymap(color_col, subset=['fatigue','sleep','sorness','stress','mood'])\
+                                  .applymap(color_col_rpe, subset=['RPE (d-1)'])\
                                     .format({'RPE (d-1)': "{:.1f}",
                                             'time (d-1)': "{:.0f}",
                                             'TL (d-1)': "{:.0f}",

@@ -42,7 +42,7 @@ def donut_score(df,data_sel,fea,title):
     # plt.show()
 
 
-def plotly_dual_axis(data1,data2, title="", y1="", y2=""):
+def plotly_dual_axis(data1,data2, title=""):
     # Create subplot with secondary axis
     subplot_fig = make_subplots(specs=[[{"secondary_y": True}]])
 
@@ -60,11 +60,11 @@ def plotly_dual_axis(data1,data2, title="", y1="", y2=""):
     subplot_fig.add_traces(fig1.data + fig2.data)
 
     #FORMAT subplot figure
-    subplot_fig.update_layout(title=title, yaxis=dict(title=y1), yaxis2=dict(title=y2))
+    subplot_fig.update_layout(title=title, yaxis=dict(title='ADaM score'), yaxis2=dict(title='Training load'))
 
     #RECOLOR so as not to have overlapping colors
     subplot_fig.for_each_trace(lambda t: t.update(line=dict(color=t.marker.color)))
 
-    #subplot_fig.update_layout(yaxis1_tickvals = [0, 5, 1], yaxis2_tickvals = [0, 1000, 100])
+    #subplot_fig.update_layout(yaxis1_tickvals = list(range(0,6))[::1], yaxis2_tickvals = list(range(1100))[::200])
 
     return subplot_fig
