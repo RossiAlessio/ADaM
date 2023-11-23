@@ -169,6 +169,14 @@ with core:
                                             'sorness': "{:.0f}",
                                             'stress': "{:.0f}",
                                             'mood': "{:.0f}"},na_rep='---'))
+                
+        for col in ['fatigue','sleep','sorness','stress','mood']:
+            if player_sel == 'Team':
+                if df_[col].mean() >= 4:
+                    st.toast('🚨 Attention for Team with high %s'%col)
+            else:
+                if df_[col].mean() >= 4:
+                    st.toast('🚨 Attention for %s with high %s'%(player_sel,col))
         
     else:
         st.markdown('Please add a dataset to continue!')
